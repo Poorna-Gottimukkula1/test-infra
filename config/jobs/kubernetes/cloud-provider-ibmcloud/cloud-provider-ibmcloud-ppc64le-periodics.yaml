@@ -554,24 +554,24 @@ periodics:
 
               [ -z "${BOSKOS_HOST:-}" ] || release_account >> "$ARTIFACTS/boskos.log" 2>&1
               [ $rc != 0 ] && echo "ERROR: E2e Serial tests exited with code: $rc"; exit $rc    
-   - name: ci-kubernetes-powervs-csi-driver-e2e
-     interval: 8h
-     cluster: k8s-infra-ppc64le-prow-build
-     labels:
-       preset-ibmcloud-cred: "true"
-     decorate: true
-     decoration_config:
-       timeout: 3h
-     extra_refs:
+  - name: ci-kubernetes-powervs-csi-driver-e2e
+    interval: 8h
+    cluster: k8s-infra-ppc64le-prow-build
+    labels:
+      preset-ibmcloud-cred: "true"
+    decorate: true
+    decoration_config:
+      timeout: 3h
+    extra_refs:
        - base_ref: porwervs-csi
          org: Poorna-Gottimukkula1
          repo: provider-ibmcloud-test-infra
          workdir: true
-     annotations:
+    annotations:
        description: Runs E2E serial tests using kubetest2 against kubernetes ci latest on IBM powervs
        testgrid-dashboards: ibm-k8s-e2e, ibm-k8s-ppc64le
        testgrid-tab-name: ci-kubernetes-powervs-csi-driver-e2e
-     spec:
+    spec:
        containers:
          - image: us-central1-docker.pkg.dev/k8s-staging-test-infra/images/kubekins-e2e:v20250815-171060767f-master
            env:
@@ -592,14 +592,13 @@ periodics:
              - bash
              - -c
              - |
-               set -o xtrace
-
+              set -o xtrace
               #Call to boskos to checkout resource
                source "./hack/boskos.sh"
 
               #Setup of kubetest2 tf deployer and ginkgo tester
-               make install-deployer-tf
-               go install sigs.k8s.io/kubetest2/kubetest2-tester-ginkgo@latest
+              make install-deployer-tf
+              go install sigs.k8s.io/kubetest2/kubetest2-tester-ginkgo@latest
               
                set +o errexit
                set -o xtrace
