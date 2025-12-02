@@ -489,7 +489,7 @@ periodics:
     decoration_config:
       timeout: 3h
     extra_refs:
-      - base_ref: porwervs-csi
+      - base_ref: powervs-csi
         org: Poorna-Gottimukkula1
         repo: provider-ibmcloud-test-infra
         workdir: true
